@@ -83,10 +83,9 @@ export default class GameScene extends Phaser.Scene {
     }
 
     setupGestureHandling() {
-        // Inicializamos el manager de gestos (cámara invisible)
         this.gestureManager = new GestureManager(this);
 
-        // Apuntado (movimiento suave)
+        // Apuntado 
         this.events.on('GESTURE_AIM', (pos) => {
             this.crosshair.setPosition(pos.x, pos.y);
         });
@@ -101,12 +100,11 @@ export default class GameScene extends Phaser.Scene {
             this.crosshair.startReload();
         });
 
-        // Interrupción de recarga (Abrir la mano antes de tiempo)
+        // Interrupcion de recarga (Abrir la mano antes de tiempo)
         this.events.on('GESTURE_STOP_RELOAD', () => {
             this.crosshair.interruptReload();
         });
 
-        // Puedes mantener la tecla ESC para pausar
         this.input.keyboard.on('keydown-ESC', () => {
             this.scene.pause(KEYS.SCENES.GAME);
             this.scene.launch(KEYS.SCENES.PAUSE);

@@ -1,5 +1,4 @@
 import { GestureRecognizer, FilesetResolver } from "@mediapipe/tasks-vision";
-import { KEYS } from '../utils/keys'; // Asegúrate de tener las rutas correctas
 
 export default class GestureManager {
     constructor(scene) {
@@ -23,9 +22,9 @@ export default class GestureManager {
             "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/wasm"
         );
 
+        // Carga del modelo de reconocimiento de gestos con opciones específicas para GPU y video (local)
         this.gestureRecognizer = await GestureRecognizer.createFromOptions(vision, {
             baseOptions: {
-                // Asegúrate de tener este archivo en tu carpeta public/
                 modelAssetPath: "/mediapipe/gesture_recognizer.task",
                 delegate: "GPU"
             },
@@ -40,7 +39,6 @@ export default class GestureManager {
         this.video = document.createElement('video');
         this.video.setAttribute('autoplay', '');
         this.video.setAttribute('playsinline', '');
-        // Ocultamos el video para que no se vea en el HTML del juego
         this.video.style.display = 'none';
         document.body.appendChild(this.video);
 
@@ -78,7 +76,6 @@ export default class GestureManager {
                 this.wasPinching = false;
             }
         } else {
-            // Si no hay manos, interrumpimos recarga si estaba ocurriendo
             if (this.isReloadingAction) {
                 this.isReloadingAction = false;
                 this.scene.events.emit('GESTURE_STOP_RELOAD');
@@ -86,7 +83,6 @@ export default class GestureManager {
             this.wasPinching = false;
         }
 
-        // Bucle continuo
         requestAnimationFrame(() => this.predictWebcam());
     }
 
