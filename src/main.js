@@ -46,7 +46,7 @@ const config = {
     default: 'arcade',
     arcade: {
       gravity: { y: 0 },
-      debug: isDebug
+      debug: false
     }
   },
   scene: [

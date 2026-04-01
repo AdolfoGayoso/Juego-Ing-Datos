@@ -67,11 +67,11 @@ export default class Boot extends Phaser.Scene {
 
         const musicVolume = (savedMusic !== null && !isNaN(parseFloat(savedMusic)))
             ? parseFloat(savedMusic)
-            : (import.meta.env.VITE_MUSIC_VOLUME || 0.5);
+            : (import.meta.env.VITE_MUSIC_VOLUME || 0.3);
 
         const sfxVolume = (savedSfx !== null && !isNaN(parseFloat(savedSfx)))
             ? parseFloat(savedSfx)
-            : (import.meta.env.VITE_SFX_VOLUME || 0.5);
+            : (import.meta.env.VITE_SFX_VOLUME || 0.3);
 
         this.registry.set(KEYS.REGISTRY.MUSIC_VOLUME, musicVolume);
         this.registry.set(KEYS.REGISTRY.SFX_VOLUME, sfxVolume);
