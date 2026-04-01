@@ -35,7 +35,7 @@ export default class SpawnerManager {
             this.zombieGroup.add(zombie);
 
             zombie.speed = 0;
-            zombie.body.setVelocity(0);
+            zombie.body.setVelocity(0.5);
             if (zombie.headHitBox && zombie.headHitBox.body) {
                 zombie.headHitBox.body.setVelocity(0);
             }

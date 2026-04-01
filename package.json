@@ -12,6 +12,8 @@
     "vite": "^7.2.4"
   },
   "dependencies": {
+    "@mediapipe/drawing_utils": "^0.3.1675466124",
+    "@mediapipe/tasks-vision": "^0.10.34",
     "axios": "^1.13.2",
     "phaser": "^3.90.0",
     "phaser3-rex-plugins": "^1.80.18",

@@ -43,13 +43,16 @@ export default class Crosshair extends Phaser.Physics.Arcade.Sprite {
     }
 
     update() {
-        this.x = this.scene.input.activePointer.x;
-        this.y = this.scene.input.activePointer.y;
+        //this.x = this.scene.input.activePointer.x;
+        //this.y = this.scene.input.activePointer.y;
     }
 
     checkHit() {
         const zombies = this.scene.spawnerManager.getZombies();
-        const { x, y } = this.scene.input.activePointer;
+
+        // Usamos la posición actual del sprite en lugar del puntero
+        const currentX = this.x;
+        const currentY = this.y;
 
         let hit = false;
 
@@ -64,12 +67,14 @@ export default class Crosshair extends Phaser.Physics.Arcade.Sprite {
                 zombie.zombieConfig.HEAD_HITBOX_RADIUS
             );
 
-            if (Phaser.Geom.Circle.Contains(headCircle, x, y)) {
+            // Cambiamos 'x' e 'y' por 'currentX' y 'currentY'
+            if (Phaser.Geom.Circle.Contains(headCircle, currentX, currentY)) {
                 zombie.onHit(true, this.streak);
                 hit = true;
             }
 
-            if (zombie.body.hitTest(x, y)) {
+            // Cambiamos hitTest a currentX y currentY
+            if (zombie.body.hitTest(currentX, currentY)) {
                 zombie.onHit(false, this.streak);
                 hit = true;
             }

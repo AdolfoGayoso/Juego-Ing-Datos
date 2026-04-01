@@ -12,6 +12,8 @@ import StreakCounter from '../game-utils/StreakCounter';
 import SpawnerManager from '../game-utils/SpawnerManager';
 import StatsManager from '../game-utils/StatsManager';
 
+import GestureManager from '../game-utils/GestureManager';
+
 export default class GameScene extends Phaser.Scene {
 
     audioScene;
@@ -22,6 +24,8 @@ export default class GameScene extends Phaser.Scene {
     streakCounter;
 
     spawnerManager;
+
+    gestureManager;
 
     constructor() {
         super(KEYS.SCENES.GAME);
@@ -51,7 +55,8 @@ export default class GameScene extends Phaser.Scene {
 
         this.setupBackground();
 
-        this.setupInputHandling();
+        // this.setupInputHandling();
+        this.setupGestureHandling();
 
         this.game.events.on(KEYS.GAME_EVENTS.ZOMBIE_BREACH, () => {
             this.baseHpPanel.takeDamage();
@@ -75,6 +80,38 @@ export default class GameScene extends Phaser.Scene {
     update() {
         this.crosshair.update();
         this.spawnerManager.update();
+    }
+
+    setupGestureHandling() {
+        // Inicializamos el manager de gestos (cámara invisible)
+        this.gestureManager = new GestureManager(this);
+
+        // Apuntado (movimiento suave)
+        this.events.on('GESTURE_AIM', (pos) => {
+            this.crosshair.setPosition(pos.x, pos.y);
+        });
+
+        // Disparo
+        this.events.on('GESTURE_SHOOT', () => {
+            this.crosshair.shoot();
+        });
+
+        // Inicio de recarga (Puño)
+        this.events.on('GESTURE_START_RELOAD', () => {
+            this.crosshair.startReload();
+        });
+
+        // Interrupción de recarga (Abrir la mano antes de tiempo)
+        this.events.on('GESTURE_STOP_RELOAD', () => {
+            this.crosshair.interruptReload();
+        });
+
+        // Puedes mantener la tecla ESC para pausar
+        this.input.keyboard.on('keydown-ESC', () => {
+            this.scene.pause(KEYS.SCENES.GAME);
+            this.scene.launch(KEYS.SCENES.PAUSE);
+            this.scene.bringToTop(KEYS.SCENES.PAUSE)
+        });
     }
 
     getSpawnerManager() {
