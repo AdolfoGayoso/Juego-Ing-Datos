@@ -10,6 +10,8 @@ docker-compose up --build
 ```
 Juego disponible en: [http://localhost:8080](http://localhost:8080)
 
+#### Le cuesta un poco reconocer los gestos, en caso de mal funcionamiento, recargar la pagina y probar de nuevo.
+
 ##  Tecnologías Usadas
 - **Phaser 3**: Motor de juego para la lógica y renderizado 2D.
 - **MediaPipe**: Seguimiento de manos y reconocimiento de gestos.
